@@ -82,6 +82,7 @@ def build_zuna11(
         rope_dim=4,
         rope_theta=10000.0,
         ape_dim=0,
+        tok_idx_type="{x,y,z,tc}",  # ZUNA1.1 uses 4D-RoPE (no explicit ch dim)
         num_fine_time_pts=32,
         model_dtype="bf16",
         stft_global_sigma=0.1,
