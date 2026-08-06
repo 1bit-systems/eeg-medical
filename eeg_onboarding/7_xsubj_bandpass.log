@@ -1,0 +1,12 @@
+[   0s] cross-subject raw EEGNet + 8-30Hz band-pass (AdamW, cosine), 40 ep...
+[ 141s]  held-out subject 1:  75.3%  (running mean 75.3%)
+[ 283s]  held-out subject 2:  59.0%  (running mean 67.2%)
+[ 391s]  held-out subject 3:  89.2%  (running mean 74.5%)
+[ 504s]  held-out subject 4:  63.5%  (running mean 71.8%)
+[ 615s]  held-out subject 5:  57.3%  (running mean 68.9%)
+[ 720s]  held-out subject 6:  70.1%  (running mean 69.1%)
+[ 827s]  held-out subject 7:  56.9%  (running mean 67.4%)
+[ 935s]  held-out subject 8:  88.9%  (running mean 70.1%)
+[1046s]  held-out subject 9:  79.2%  (running mean 71.1%)
+
+cross-subject EEGNet + band-pass: mean=71.1%  (was 66.4% without band-pass)

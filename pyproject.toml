@@ -1,0 +1,37 @@
+[project]
+name = "eeg-medical"
+version = "0.1.0"
+description = "Open-source EEG foundation model fine-tuning for medical applications — built on Zyphra ZUNA1.1"
+license = {text = "Apache-2.0"}
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "zuna>=1.1.0",
+    "torch>=2.4.0",
+    "mne>=1.7.0",
+    "numpy>=1.26.0",
+    "pyyaml>=6.0",
+    "wandb>=0.17.0",
+    "tqdm>=4.66.0",
+    "h5py>=3.11.0",
+    "scipy>=1.13.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5.0",
+    "ipykernel>=6.29.0",
+]
+gpu = ["torch>=2.4.0+cu121"]
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100

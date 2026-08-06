@@ -1,0 +1,10 @@
+within-subject EEGNet + band-pass, 60 ep, 5-fold CV — probing the ceiling per subject:
+  subject 1: 86.4%
+  subject 2: 58.3%
+  subject 3: 96.5%
+  subject 4: 71.5%
+  subject 5: 62.2%
+  subject 6: 68.4%
+  subject 7: 59.3%
+  subject 8: 96.2%
+  subject 9: 92.4%

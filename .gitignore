@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Data (large files)
+data/tuh_raw/
+data/tuh_processed/
+*.mmap
+
+# Checkpoints
+checkpoints/
+*.pt
+*.pth
+
+# Notebooks
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# WandB
+wandb/
+
+# OS
+.DS_Store
+Thumbs.db
+eeg_onboarding/tuh_eeg_form_OFFICIAL_EDITABLE.pdf

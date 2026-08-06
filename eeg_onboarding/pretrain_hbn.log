@@ -1,0 +1,4 @@
+[    0s] 60 subjects, window=2.0s*500Hz=1000 samples
+[   36s] ready windows: (12502, 129, 1000)
+model params 6,985 | train windows 11251 | val 1251
+[  134s] ep  1 train_mse=0.9967 val_mse=0.4590

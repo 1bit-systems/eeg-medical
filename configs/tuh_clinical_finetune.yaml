@@ -1,0 +1,68 @@
+# Fine-tuning config: ZUNA1.1 on TUH EEG for clinical applications
+# Adapted from ZUNA1.1's config_bci.yaml training setup
+
+pretrained_model: "Zyphra/ZUNA1.1"
+init_ckpt_path: null
+
+# --- Data ---
+data_dir: "data/tuh_processed"
+segment_duration: "30_seconds"
+min_quality_any: 0.1
+min_quality_mean: 0.2
+sample_rate: 256
+data_norm: 10.0
+data_clip: 1.0
+do_avg_ref: true
+z_score_type: "across_channel"
+num_workers: 8
+prefetch_factor: 4
+
+# --- Clinical tasks ---
+clinical_tasks:
+  - denoising
+  - reconstruction
+  # - seizure_detection   # uncomment when labels available
+  # - montage_upsample     # uncomment for dense-prediction tasks
+
+# --- Training ---
+batch_size: 1
+target_packed_seqlen: 22000
+learning_rate: 1.0e-4  # lower LR for fine-tuning (ZUNA1.1 trained at 5e-4)
+warmup_steps: 500
+total_steps: 50000
+grad_acc_steps: 4
+weight_decay: 0.01
+scheduler: "cosine"
+lr_min_ratio: 0.01
+optimizer_beta1: 0.9
+optimizer_beta2: 0.95
+clip: 1.0
+use_ema: true
+ema_decay: 0.9999
+
+# --- Distributed ---
+fsdp_type: "no_shard"
+compile: true
+model_dtype: "bf16"
+matmul_allow_tf32: true
+tp_size: 1
+
+# --- Dropout schedules (clinical focus) ---
+token_dropout_prob: 0.99
+dropout_scheme: "mix-4-dropouts-train"
+kept_token_loss_weight: 0.1
+
+# --- Checkpointing ---
+checkpoint_every: 2000
+eval_every: 5000
+keep_checkpoints: 5
+
+# --- Logging ---
+wandb_project: "eeg-medical"
+log_every: 10
+
+# --- LoRA (optional) ---
+use_lora: false
+lora_rank: 16
+lora_alpha: 32.0
+lora_dropout: 0.05
