@@ -1,6 +1,6 @@
 # EEG Medical — Open EEG Foundation Models for Healthcare
 
-**Fine-tune Zyphra's ZUNA1.1 EEG foundation model on clinical EEG data for medical applications. Free and open-source (Apache 2.0).**
+**Fine-tune Zyphra's ZUNA1.1 EEG foundation model on clinical EEG data for medical applications. Free and open-source (AGPL-3.0).**
 
 ## Why
 
@@ -78,4 +78,4 @@ Built on ZUNA1.1 by Zyphra ([GitHub](https://github.com/Zyphra/zuna), [HuggingFa
 
 ## License
 
-Apache 2.0 — free for research and commercial use.
+AGPL-3.0 — free for research and commercial use, with the condition that any network/service deployments must release their modifications. EEG datasets are released under CC-BY-4.0. No closed-source profiteering from this research.
