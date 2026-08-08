@@ -28,7 +28,7 @@ This project bridges that gap:
 ```bash
 # Install
 git clone https://github.com/1bit-systems/eeg-medical.git && cd eeg-medical
-pip install -e ".[gpu]"
+pip install -e .
 
 # Download TUH EEG (requires Temple University access grant)
 python scripts/download_tuh.py --output data/tuh_raw

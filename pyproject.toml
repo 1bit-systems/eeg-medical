@@ -23,7 +23,6 @@ dev = [
     "ruff>=0.5.0",
     "ipykernel>=6.29.0",
 ]
-gpu = ["torch>=2.4.0+cu121"]
 
 [build-system]
 requires = ["setuptools>=75.0"]
