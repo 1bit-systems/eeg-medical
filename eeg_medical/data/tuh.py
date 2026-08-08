@@ -1,10 +1,11 @@
 """EEG Medical — TUH EEG data pipeline for ZUNA1.1 fine-tuning."""
 
-from pathlib import Path
-from typing import Iterator, Optional
 import json
-import numpy as np
+from collections.abc import Iterator
+from pathlib import Path
+
 import mne
+import numpy as np
 
 
 def read_tuh_edf(edf_path: str | Path) -> tuple[np.ndarray, dict, float]:
@@ -46,7 +47,7 @@ def resample_to_256hz(data: np.ndarray, orig_sfreq: float) -> np.ndarray:
     return raw.get_data()
 
 
-def apply_montage(data: np.ndarray, ch_names: list[str]) -> Optional[np.ndarray]:
+def apply_montage(data: np.ndarray, ch_names: list[str]) -> np.ndarray | None:
     """Attempt to fit standard 10-20 montage. Returns 3D scalp coords (n_ch, 3)."""
     try:
         montage = mne.channels.make_standard_montage("standard_1020")
@@ -84,7 +85,7 @@ def quality_score(data: np.ndarray, sfreq: int = 256) -> float:
     """Per-channel quality score (0=bad, 1=clean).
     Penalizes: flat-lining, extreme amplitudes, line noise.
     """
-    n_ch, n_samp = data.shape
+    n_ch, _ = data.shape
     scores = np.ones(n_ch)
 
     for i in range(n_ch):
@@ -114,7 +115,7 @@ def preprocess_recording(
 
     Returns list of output file paths.
     """
-    data, meta, duration = read_tuh_edf(edf_path)
+    data, meta, _ = read_tuh_edf(edf_path)
     data = resample_to_256hz(data, meta["sfreq"])
     pos = apply_montage(data, meta["ch_names"])
 

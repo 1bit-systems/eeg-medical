@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 """Evaluate a fine-tuned ZUNA1.1 model on clinical benchmarks.
 
+The benchmark functions themselves live in eeg_medical/evaluation/benchmarks.py
+(see tests/test_benchmarks.py for usage). Wiring them to a live checkpoint
+requires the reconstruction inference path, which is not implemented yet —
+this script fails loudly instead of writing placeholder results.
+
 Usage:
     python scripts/evaluate.py --checkpoint checkpoints/best.pt --task seizure_detection
-    python scripts/evaluate.py --checkpoint checkpoints/best.pt --task all
 """
 
 from __future__ import annotations
@@ -11,13 +15,6 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
-import json
-
-import numpy as np
-import torch
-
-from eeg_medical.evaluation import run_benchmark
-from eeg_medical.data import read_tuh_edf, resample_to_256hz, segment_eeg
 
 
 def parse_args() -> argparse.Namespace:
@@ -39,26 +36,13 @@ def main() -> None:
         sys.exit(1)
 
     print(f"Loading checkpoint: {ckpt_path}")
-    # TODO: load model from checkpoint
-    # model = load_zuna_checkpoint(ckpt_path)
-
-    results = {"checkpoint": str(ckpt_path), "benchmarks": {}}
-    tasks = (
-        ["seizure_detection", "artifact_removal", "montage_reconstruction"]
-        if args.task == "all"
-        else [args.task]
+    print(
+        "Evaluation is not wired yet: there is no inference path that turns a "
+        "checkpoint into reconstructions. Use the benchmark functions directly "
+        "from eeg_medical.evaluation (see tests/test_benchmarks.py).",
+        file=sys.stderr,
     )
-
-    for task in tasks:
-        print(f"\nRunning benchmark: {task}")
-        # TODO: run actual inference + benchmark
-        # dummy = model.reconstruct(test_segment)
-        # result = run_benchmark(task, dummy, test_segment, metadata)
-        # results["benchmarks"][task] = result
-        results["benchmarks"][task] = {"status": "scaffold — evaluation pending"}
-
-    Path(args.output).write_text(json.dumps(results, indent=2))
-    print(f"\nResults saved to {args.output}")
+    sys.exit(1)
 
 
 if __name__ == "__main__":

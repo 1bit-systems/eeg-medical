@@ -19,10 +19,9 @@ import json
 import sys
 import time
 from pathlib import Path
-from typing import Optional
 
-import numpy as np
 import mne
+import numpy as np
 
 
 def parse_args() -> argparse.Namespace:
@@ -81,7 +80,7 @@ def find_bids_recordings(root: Path) -> list[dict]:
     return recordings
 
 
-def read_eeg(recording: dict) -> Optional[tuple[np.ndarray, float, list[str]]]:
+def read_eeg(recording: dict) -> tuple[np.ndarray, float, list[str]] | None:
     """Read EEG data from BIDS file. Returns (data_array, sfreq, channel_names)."""
     path = recording["path"]
     fmt = recording["format"]
@@ -144,7 +143,7 @@ def extract_channel_positions(
 
 def quality_score(data: np.ndarray, sfreq: float = TARGET_SFREQ) -> float:
     """Per-segment quality score (0=bad, 1=clean)."""
-    n_ch, n_samp = data.shape
+    n_ch, _ = data.shape
     scores = np.ones(n_ch, dtype=np.float32)
 
     for i in range(n_ch):

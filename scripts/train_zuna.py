@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Fine-tune ZUNA1.1 on clinical EEG — working training loop.
 
 Wires ZUNA's EEGProcessor + EncoderDecoder for flow-matching training.
@@ -11,20 +12,14 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import json
-import os
-import sys
 import time
-from contextlib import nullcontext
 from pathlib import Path
-from typing import Optional
 
-import numpy as np
 import torch
-import torch.nn as nn
+from torch import nn
 from torch.utils.data import DataLoader
 
-from eeg_medical.data.clinical_dataset import ClinicalEEGDataset, prepare_clinical_data
+from eeg_medical.data.clinical_dataset import ClinicalEEGDataset
 from eeg_medical.models.zuna_loader import build_zuna11
 from eeg_medical.training.config import FinetuneConfig
 
@@ -41,8 +36,10 @@ def parse_args() -> argparse.Namespace:
 
 def build_processor(config: FinetuneConfig):
     """Build EEGProcessor matching ZUNA training setup."""
-    from zuna.inference.AY2l.lingua.apps.AY2latent_bci.eeg_data import EEGProcessor
-    from zuna.inference.AY2l.lingua.lingua.args import BCIDatasetArgs
+    from zuna.inference.AY2l.lingua.apps.AY2latent_bci.eeg_data import (
+        BCIDatasetArgs,
+        EEGProcessor,
+    )
 
     # Reuse ZUNA's BCIDatasetArgs structure that EEGProcessor expects
     data_args = BCIDatasetArgs(
@@ -85,7 +82,7 @@ def train_epoch(
     scheduler,
     device: torch.device,
     grad_acc_steps: int = 1,
-    max_steps: Optional[int] = None,
+    max_steps: int | None = None,
     log_every: int = 10,
 ) -> float:
     """Run one training epoch (or up to max_steps)."""
@@ -129,7 +126,7 @@ def train_epoch(
         )
 
         # Forward pass
-        logits, losses = model.forward(
+        _, losses = model.forward(
             encoder_input=proc["encoder_input"],
             decoder_input=proc["decoder_input"],
             t=proc["t"],

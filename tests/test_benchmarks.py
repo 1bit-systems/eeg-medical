@@ -1,11 +1,10 @@
 """EEG Medical — basic tests."""
 
 import numpy as np
-import pytest
 
 from eeg_medical.evaluation.benchmarks import (
-    seizure_detection_benchmark,
     artifact_removal_benchmark,
+    seizure_detection_benchmark,
 )
 
 

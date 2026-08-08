@@ -18,11 +18,8 @@ Without --subjects, pulls ALL available subjects for that dataset.
 from __future__ import annotations
 
 import argparse
-import json
-import os
 import sys
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 import requests
@@ -125,7 +122,7 @@ def discover_files(
     subject_dir_names = sorted({
         k.split("/")[1] if dataset != "ds005505" else k.split("/")[5]
         for k in all_keys
-        if "/eeg/" in k or k.endswith(".edf") or k.endswith(".set")
+        if "/eeg/" in k or k.endswith((".edf", ".set"))
     })
 
     if subjects > 0:
@@ -172,10 +169,8 @@ def download_file(
         resp = requests.get(url, timeout=300, stream=True)
         resp.raise_for_status()
 
-        total = int(resp.headers.get("content-length", 0))
         with open(dest, "wb") as f:
-            for chunk in resp.iter_content(chunk_size=8 * 1024 * 1024):
-                f.write(chunk)
+            f.writelines(resp.iter_content(chunk_size=8 * 1024 * 1024))
 
         return (s3_key, dest.stat().st_size, "ok")
     except Exception as e:

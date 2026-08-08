@@ -10,9 +10,10 @@ Format per segment:
 
 from __future__ import annotations
 
-from pathlib import Path
-from typing import Iterator, Optional
 import json
+from collections.abc import Iterator
+from pathlib import Path
+
 import numpy as np
 import torch
 from torch.utils.data import IterableDataset
@@ -67,7 +68,7 @@ class ClinicalEEGDataset(IterableDataset):
                 continue
         return kept
 
-    def _load_segment(self, meta_path: Path) -> Optional[dict]:
+    def _load_segment(self, meta_path: Path) -> dict | None:
         """Load one segment: read JSON metadata + memmap data.
 
         Returns dict with keys matching ZUNA's expected format, or None if invalid.
@@ -140,10 +141,6 @@ class ClinicalEEGDataset(IterableDataset):
                 np.random.shuffle(indices)
 
             for idx in indices:
-                # Skip segments not assigned to this rank in sharded mode
-                if idx % self.world_size != self.rank:
-                    continue
-
                 segment = self._load_segment(self.meta_files[idx])
                 if segment is not None:
                     yield segment

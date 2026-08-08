@@ -27,8 +27,8 @@ This project bridges that gap:
 
 ```bash
 # Install
-git clone https://github.com/eeg-medical/eeg-medical.git && cd eeg-medical
-pip install -e ".[gpu]"
+git clone https://github.com/1bit-systems/eeg-medical.git && cd eeg-medical
+pip install -e .
 
 # Download TUH EEG (requires Temple University access grant)
 python scripts/download_tuh.py --output data/tuh_raw
@@ -37,10 +37,9 @@ python scripts/download_tuh.py --output data/tuh_raw
 python scripts/preprocess_tuh.py --input data/tuh_raw --output data/tuh_processed
 
 # Fine-tune ZUNA1.1 on clinical EEG
-python scripts/finetune.py --config configs/tuh_clinical_finetune.yaml
+python scripts/train_zuna.py --config configs/tuh_clinical_finetune.yaml
 
-# Evaluate on seizure detection benchmark
-python scripts/evaluate.py --checkpoint checkpoints/best.pt --task seizure_detection
+# Benchmarks live in eeg_medical/evaluation/ (see tests/ for usage)
 ```
 
 ## Project structure

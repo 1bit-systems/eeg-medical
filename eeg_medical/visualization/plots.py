@@ -3,19 +3,19 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_reconstruction(
     original: np.ndarray,
     reconstructed: np.ndarray,
-    ch_names: Optional[list[str]] = None,
+    ch_names: list[str] | None = None,
     sfreq: int = 256,
     n_channels: int = 8,
     title: str = "EEG Reconstruction",
-    save_path: Optional[str | Path] = None,
+    save_path: str | Path | None = None,
 ) -> plt.Figure:
     """Plot original vs reconstructed EEG for visual comparison.
 
@@ -56,9 +56,9 @@ def plot_reconstruction(
 
 def plot_nmse_heatmap(
     nmse_per_ch: np.ndarray,
-    ch_names: Optional[list[str]] = None,
+    ch_names: list[str] | None = None,
     title: str = "Per-Channel NMSE",
-    save_path: Optional[str | Path] = None,
+    save_path: str | Path | None = None,
 ) -> plt.Figure:
     """Plot per-channel NMSE as a topographic heatmap (simplified).
 

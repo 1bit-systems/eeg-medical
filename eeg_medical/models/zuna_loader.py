@@ -7,9 +7,9 @@ we strip that prefix to match the local EncoderDecoder state_dict.
 from __future__ import annotations
 
 import torch
-import torch.nn as nn
-from safetensors.torch import load_file
 from huggingface_hub import hf_hub_download
+from safetensors.torch import load_file
+from torch import nn
 
 
 def load_zuna11_weights(
@@ -62,8 +62,8 @@ def build_zuna11(
     One-liner to get a ready-to-use/fine-tune model.
     """
     from zuna.inference.AY2l.lingua.apps.AY2latent_bci.transformer import (
-        EncoderDecoder,
         DecoderTransformerArgs,
+        EncoderDecoder,
     )
 
     args = DecoderTransformerArgs(

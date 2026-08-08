@@ -8,8 +8,8 @@ import json
 
 import numpy as np
 
-from eeg_medical.data.tuh import preprocess_recording
 from eeg_medical.data.clinical_dataset import ClinicalEEGDataset
+from eeg_medical.data.tuh import preprocess_recording
 
 
 def _fake_edf_read(edf_path):

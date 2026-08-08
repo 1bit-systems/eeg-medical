@@ -1,17 +1,17 @@
 """EEG Medical — models package init."""
 
 from eeg_medical.models.zuna_wrapper import (
-    load_zuna_pretrained,
-    add_lora_adapters,
     SeizureClassifier,
-    save_checkpoint,
+    add_lora_adapters,
     load_checkpoint,
+    load_zuna_pretrained,
+    save_checkpoint,
 )
 
 __all__ = [
-    "load_zuna_pretrained",
-    "add_lora_adapters",
     "SeizureClassifier",
-    "save_checkpoint",
+    "add_lora_adapters",
     "load_checkpoint",
+    "load_zuna_pretrained",
+    "save_checkpoint",
 ]
