@@ -2,7 +2,7 @@
 
 **Fine-tune Zyphra's ZUNA1.1 EEG foundation model on clinical EEG data for medical applications. Free and open-source (AGPL-3.0).**
 
-> This repository is the canonical, independently-maintained home of the EEG Medical project. It is not part of the 1bit.systems family of projects. A public status/information site describing this project is mirrored at [eeg-medical.1bit.systems](https://eeg-medical.1bit.systems), but development, code, and data handling all live here.
+> This repository is the canonical home of the EEG Medical project: development, code, data handling, the public site source, and the ZUNA tooling all live here. The public site is deployed at [eeg-medical.1bit.systems](https://eeg-medical.1bit.systems) from `site/`. The `1bit zuna` engine integration (ZUNA compiled into the 1bit inference engine) lives in the engine repo [1bit-systems/1bit-systems](https://github.com/1bit-systems/1bit-systems); the port source is canonical here in `tools/` and vendored there for the engine build.
 
 ## Why
 
@@ -53,6 +53,9 @@ eeg_medical/
 └── visualization/ # EEG plots, reconstruction overlays
 configs/ # YAML config files per experiment
 scripts/ # Entry-point scripts
+tools/   # ZUNA CPU port (C++), parity harness, EDF/preprocessing tooling
+site/    # eeg-medical.1bit.systems site source (Cloudflare Pages)
+docs/    # research notes + implementation plan
 notebooks/ # Exploratory analysis
 tests/ # Unit tests
 ```
