@@ -13,7 +13,7 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
-from concurrent.futures import ProcessPoolExecutor, as_completed
+
 from tqdm import tqdm
 
 from eeg_medical.data import preprocess_recording

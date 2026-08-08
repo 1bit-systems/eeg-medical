@@ -9,7 +9,7 @@ Provides:
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
+
 import torch
 from torch import nn
 
@@ -20,14 +20,15 @@ def load_zuna_pretrained(
 ) -> nn.Module:
     """Load ZUNA1.1 pretrained weights from HuggingFace or local cache.
 
-    The zuna package auto-downloads weights on first use.
+    The zuna package has no public `ZUNA` class; the supported path is
+    building the EncoderDecoder and loading the safetensors checkpoint
+    (see zuna_loader.build_zuna11). model_id is accepted for API
+    compatibility but the weights are fetched from the Zyphra/ZUNA1.1
+    HF repo by the loader.
     """
-    from zuna import ZUNA
+    from eeg_medical.models.zuna_loader import build_zuna11
 
-    model = ZUNA.from_pretrained(model_id)
-    model.to(device)
-    model.eval()
-    return model
+    return build_zuna11(device=device)
 
 
 def add_lora_adapters(
@@ -35,7 +36,7 @@ def add_lora_adapters(
     rank: int = 16,
     alpha: float = 32.0,
     dropout: float = 0.05,
-    target_modules: Optional[list[str]] = None,
+    target_modules: list[str] | None = None,
 ) -> nn.Module:
     """Add LoRA adapters to ZUNA1.1 for parameter-efficient fine-tuning.
 
@@ -87,10 +88,10 @@ class SeizureClassifier(nn.Module):
 
 def save_checkpoint(
     model: nn.Module,
-    optimizer: Optional[torch.optim.Optimizer],
+    optimizer: torch.optim.Optimizer | None,
     step: int,
     path: str | Path,
-    config: Optional[dict] = None,
+    config: dict | None = None,
 ) -> None:
     """Save a training checkpoint."""
     Path(path).parent.mkdir(parents=True, exist_ok=True)
@@ -108,7 +109,7 @@ def save_checkpoint(
 def load_checkpoint(
     path: str | Path,
     model: nn.Module,
-    optimizer: Optional[torch.optim.Optimizer] = None,
+    optimizer: torch.optim.Optimizer | None = None,
     device: str = "cuda",
 ) -> dict:
     """Load a training checkpoint."""

@@ -8,9 +8,9 @@ Each benchmark evaluates a clinically meaningful task:
 
 from __future__ import annotations
 
-from pathlib import Path
-from typing import Optional
 import json
+from pathlib import Path
+
 import numpy as np
 
 
@@ -138,7 +138,7 @@ def montage_reconstruction_benchmark(
 def _default_regions() -> dict[str, list[int]]:
     """Default 10-20 channel groupings by brain region."""
     return {
-        "frontal": list(range(0, 32)),      # Fp1, Fp2, F3, F4, Fz, etc.
+        "frontal": list(range(32)),      # Fp1, Fp2, F3, F4, Fz, etc.
         "central": list(range(32, 64)),     # C3, C4, Cz
         "temporal": list(range(64, 96)),    # T3, T4, T5, T6
         "parietal": list(range(96, 112)),   # P3, P4, Pz
@@ -150,7 +150,7 @@ def run_benchmark(
     benchmark_name: str,
     reconstructed: np.ndarray,
     original: np.ndarray,
-    metadata: Optional[dict] = None,
+    metadata: dict | None = None,
     **kwargs,
 ) -> dict:
     """Run a named clinical benchmark.

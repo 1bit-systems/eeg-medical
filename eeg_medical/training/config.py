@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-import yaml
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
 from pathlib import Path
-from typing import Optional
+
+import yaml
 
 
 @dataclass
@@ -14,7 +14,7 @@ class FinetuneConfig:
 
     # Model
     pretrained_model: str = "Zyphra/ZUNA1.1"
-    init_ckpt_path: Optional[str] = None  # local checkpoint override
+    init_ckpt_path: str | None = None  # local checkpoint override
 
     # Data
     data_dir: str = "data/tuh_processed"
@@ -58,10 +58,13 @@ class FinetuneConfig:
     lora_dropout: float = 0.05
 
     @classmethod
-    def from_yaml(cls, path: str | Path) -> "FinetuneConfig":
+    def from_yaml(cls, path: str | Path) -> FinetuneConfig:
         with open(path) as f:
             data = yaml.safe_load(f)
-        return cls(**data)
+        # Ignore keys we don't know about: shipped YAMLs carry ZUNA config
+        # extras (sample_rate, token_dropout_prob, ...) that are not fields.
+        known = {f.name for f in fields(cls)}
+        return cls(**{k: v for k, v in data.items() if k in known})
 
     def to_yaml(self, path: str | Path) -> None:
         with open(path, "w") as f:

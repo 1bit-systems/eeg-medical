@@ -1,5 +1,5 @@
 """EEG Medical — training package init."""
 
-from eeg_medical.training.config import FinetuneConfig, ClinicalEvalConfig
+from eeg_medical.training.config import ClinicalEvalConfig, FinetuneConfig
 
-__all__ = ["FinetuneConfig", "ClinicalEvalConfig"]
+__all__ = ["ClinicalEvalConfig", "FinetuneConfig"]
