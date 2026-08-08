@@ -76,6 +76,15 @@ TUH EEG Corpus requires an access request from [Temple University](https://www.i
 
 This project never redistributes the TUH corpus, in raw or processed form, to any third party, consistent with Temple University's data use agreement. Only this project's own trained model weights and artifacts are intended for open distribution.
 
+## Model distribution
+
+Once fine-tuning is complete, checkpoints and model artifacts produced by this project will be published in two places:
+
+- **Hugging Face** — the primary home for pre-trained checkpoints, model cards, and versioned releases, for anyone to download and use directly.
+- **Freenet** — a peer-to-peer mirror with no central host, so the weights remain available even if any single site goes down.
+
+Only this project's own trained weights and artifacts are ever distributed this way. The TUH EEG Corpus itself — raw or processed — never leaves this project's own infrastructure and is never uploaded to Hugging Face, Freenet, or anywhere else, per Temple University's data use agreement.
+
 ## Citation
 
 Built on ZUNA1.1 by Zyphra ([GitHub](https://github.com/Zyphra/zuna), [HuggingFace](https://huggingface.co/Zyphra/ZUNA1.1)).
