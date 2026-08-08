@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install (CPU torch)
-        run: pip install --index-url https://download.pytorch.org/whl/cpu -e ".[dev]"
+      - name: Install (CPU torch, zuna from PyPI)
+        run: pip install --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple -e ".[dev]"
       - name: Test
         run: pytest tests/ -v
