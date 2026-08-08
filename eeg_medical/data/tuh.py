@@ -139,8 +139,8 @@ def preprocess_recording(
             **meta,
             "segment_idx": i,
             "duration": segment_duration,
-            "n_channels": segment.shape[1],
-            "n_samples": segment.shape[0],
+            "n_channels": segment.shape[0],
+            "n_samples": segment.shape[1],
             "quality_score": q,
             "scalp_positions_3d": pos.tolist() if pos is not None else None,
         }
