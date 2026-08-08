@@ -1,0 +1,7 @@
+# Cloudflare Pages deployment config for eeg-medical.1bit.systems.
+# Static site: index.html + stats.json at the build output root.
+name = "eeg-medical"
+pages_build_output_dir = "site/eeg-medical"
+
+[env.production]
+pages_build_output_dir = "site/eeg-medical"
