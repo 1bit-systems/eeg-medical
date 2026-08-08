@@ -2,6 +2,8 @@
 
 **Fine-tune Zyphra's ZUNA1.1 EEG foundation model on clinical EEG data for medical applications. Free and open-source (AGPL-3.0).**
 
+> This repository is the canonical, independently-maintained home of the EEG Medical project. It is not part of the 1bit.systems family of projects. A public status/information site describing this project is mirrored at [eeg-medical.1bit.systems](https://eeg-medical.1bit.systems), but development, code, and data handling all live here.
+
 ## Why
 
 Clinical EEG is underserved by AI. Most models are proprietary, locked behind paywalls, or trained only on healthy subjects. ZUNA1.1 is a 380M-parameter diffusion autoencoder that reconstructs, denoises, and upsamples EEG from any montage — but it was trained on public research datasets, not clinical-grade data.
@@ -45,15 +47,15 @@ python scripts/evaluate.py --checkpoint checkpoints/best.pt --task seizure_detec
 
 ```
 eeg_medical/
-├── data/           # TUH data loader, preprocessing, quality scoring
-├── training/       # Fine-tuning loop, distributed training, config parsing
-├── evaluation/     # Clinical benchmarks: seizure detection, artifact removal
-├── models/         # ZUNA1.1 wrapper, LoRA adapters, task heads
-└── visualization/  # EEG plots, reconstruction overlays
-configs/            # YAML config files per experiment
-scripts/            # Entry-point scripts
-notebooks/          # Exploratory analysis
-tests/              # Unit tests
+├── data/ # TUH data loader, preprocessing, quality scoring
+├── training/ # Fine-tuning loop, distributed training, config parsing
+├── evaluation/ # Clinical benchmarks: seizure detection, artifact removal
+├── models/ # ZUNA1.1 wrapper, LoRA adapters, task heads
+└── visualization/ # EEG plots, reconstruction overlays
+configs/ # YAML config files per experiment
+scripts/ # Entry-point scripts
+notebooks/ # Exploratory analysis
+tests/ # Unit tests
 ```
 
 ## Medical benchmarks (planned)
@@ -72,10 +74,16 @@ TUH EEG Corpus requires an access request from [Temple University](https://www.i
 2. Run preprocessing: `python scripts/preprocess_tuh.py`
 3. Output lands in `data/tuh_processed/` as ZUNA-compatible `.json` + `.mmap` pairs
 
+This project never redistributes the TUH corpus, in raw or processed form, to any third party, consistent with Temple University's data use agreement. Only this project's own trained model weights and artifacts are intended for open distribution.
+
 ## Citation
 
 Built on ZUNA1.1 by Zyphra ([GitHub](https://github.com/Zyphra/zuna), [HuggingFace](https://huggingface.co/Zyphra/ZUNA1.1)).
 
 ## License
 
-AGPL-3.0 — free for research and commercial use, with the condition that any network/service deployments must release their modifications. EEG datasets are released under CC-BY-4.0. No closed-source profiteering from this research.
+Code in this repository is licensed under AGPL-3.0 — free for research and commercial use, with the condition that any network/service deployments must release their modifications.
+
+The TUH EEG Corpus itself is **not** relicensed by this project and is **not** CC-BY-4.0 — it remains governed entirely by Temple University's own data use agreement, which prohibits redistribution to third parties. This project uses that data only internally for training and evaluation, and never re-publishes the raw or processed clinical recordings.
+
+Any of this project's own outputs that are released openly — fine-tuned model weights, checkpoints, and aggregate (non-identifying) benchmark results — are made freely available, separate and distinct from the TUH corpus itself. No closed-source profiteering from this research.
