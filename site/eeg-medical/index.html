@@ -88,7 +88,7 @@ footer{border-top:1px solid var(--border);margin-top:20px;padding:40px 32px;}
 <div class="nav-in">
 <a class="brand" href="#top"><span class="mark">1bs</span><span class="wordmark"><span class="g">1</span>bit<span style="color:var(--pink);">.</span>systems <span style="color:var(--muted);font-weight:600;">/ eeg-medical</span></span></a>
 <div class="nav-links"><a href="#why">Why</a><a href="#capabilities">Capabilities</a><a href="#data">Data Access</a><a href="#quickstart">Quick Start</a></div>
-<div class="nav-cta"><a class="btn btn-primary btn-sm" href="https://github.com/bong-water-water-bong/eeg-medical" target="_blank" rel="noopener">GitHub</a></div>
+<div class="nav-cta"><a class="btn btn-primary btn-sm" href="https://github.com/1bit-systems/eeg-medical" target="_blank" rel="noopener">GitHub</a></div>
 </div>
 </nav>
 
@@ -96,16 +96,16 @@ footer{border-top:1px solid var(--border);margin-top:20px;padding:40px 32px;}
 <span class="eyebrow">Zyphra ZUNA1.1 · Clinical EEG</span>
 <div style="margin-top:14px;"><span class="pill warn"><span class="dot"></span>⚕ Open foundation models for clinical EEG</span></div>
 <h1>Clinical-grade EEG AI. <span class="g">Open. Free.</span> Not for sale.</h1>
-<p class="sub">Fine-tuning Zyphra's ZUNA1.1 EEG foundation model on the Temple University Hospital EEG Corpus — the largest public clinical EEG dataset. AGPL-3.0 code, CC-BY-4.0 data. No closed-source profiteering from this research.</p>
+<p class="sub">Fine-tuning Zyphra's ZUNA1.1 EEG foundation model on the Temple University Hospital EEG Corpus — the largest public clinical EEG dataset. AGPL-3.0 code, open model weights. TUH data remains under Temple University’s own data use agreement. No closed-source profiteering from this research.</p>
 <div class="cta-row">
-<a class="btn btn-primary btn-lg" href="https://github.com/bong-water-water-bong/eeg-medical" target="_blank" rel="noopener">View on GitHub →</a>
+<a class="btn btn-primary btn-lg" href="https://github.com/1bit-systems/eeg-medical" target="_blank" rel="noopener">View on GitHub →</a>
 <a class="btn btn-ghost btn-lg" href="#data">Data Access Guide →</a>
 </div>
 <div class="stats">
 <div class="stat"><span class="lbl">Base model</span><span class="val">380M</span></div>
 <div class="stat"><span class="lbl">TUH recordings</span><span class="val">30,000+</span></div>
 <div class="stat"><span class="lbl">Code license</span><span class="val" style="font-size:20px;">AGPL-3.0</span></div>
-<div class="stat"><span class="lbl">Data license</span><span class="val" style="font-size:20px;">CC-BY-4.0</span></div>
+<div class="stat"><span class="lbl">TUH data</span><span class="val" style="font-size:14px;">Temple DUA</span></div>
 </div>
 </section>
 
@@ -154,8 +154,8 @@ footer{border-top:1px solid var(--border);margin-top:20px;padding:40px 32px;}
 <h2 style="margin:16px 0 20px;">Fine-tune in five commands.</h2>
 <div class="code">
 <span class="c"># Install</span>
-<span class="g">git clone https://github.com/eeg-medical/eeg-medical.git && cd eeg-medical
-pip install -e ".[gpu]"</span>
+<span class="g">git clone https://github.com/1bit-systems/eeg-medical.git && cd eeg-medical
+pip install -e .</span>
 
 <span class="c"># Download TUH EEG (requires Temple University access grant)</span>
 <span class="g">python scripts/download_tuh.py --output data/tuh_raw</span>
@@ -164,21 +164,21 @@ pip install -e ".[gpu]"</span>
 <span class="g">python scripts/preprocess_tuh.py --input data/tuh_raw --output data/tuh_processed</span>
 
 <span class="c"># Fine-tune ZUNA1.1 on clinical EEG</span>
-<span class="g">python scripts/finetune.py --config configs/tuh_clinical_finetune.yaml</span>
+<span class="g">python scripts/train_zuna.py --config configs/tuh_clinical_finetune.yaml</span>
 </div>
 </section>
 
 <footer class="wrap">
 <div class="foot-links">
-<a href="https://github.com/bong-water-water-bong/eeg-medical" target="_blank" rel="noopener">GitHub</a>
+<a href="https://github.com/1bit-systems/eeg-medical" target="_blank" rel="noopener">GitHub</a>
 <a href="https://1bit.systems">1bit.systems</a>
 <a href="#data">Data Access</a>
-<a href="https://github.com/bong-water-water-bong/eeg-medical/blob/main/LICENSE">License</a>
+<a href="https://github.com/1bit-systems/eeg-medical/blob/main/LICENSE">License</a>
 </div>
 <div class="foot-fine">
-AGPL-3.0 code · CC-BY-4.0 data · research software, not a certified medical device.<br>
+AGPL-3.0 code · open model weights · TUH data per Temple University DUA · research software, not a certified medical device.<br>
 Built on <a href="https://huggingface.co/Zyphra/ZUNA1.1" target="_blank" rel="noopener" class="p">ZUNA1.1 by Zyphra</a> (<a href="https://www.zyphra.com/our-work/zuna1.1" target="_blank" rel="noopener">announcement</a>, Apache-2.0). Fine-tuned on the Temple University Hospital EEG Corpus.<br>
-—bong-water-water-bong · "free for research and commercial use, no closed-source profiteering"
+—1bit.systems · "free for research and commercial use, no closed-source profiteering"
 </div>
 </footer>
 
@@ -188,6 +188,12 @@ fetch('./stats.json?_=' + Date.now())
 .then(function(d){
 if(!d) return;
 function set(id, v){ var el = document.getElementById(id); if(el && v !== undefined && v !== null) el.textContent = v; }
+if(d.recordings_synced === 0 && !d.last_sync_utc){
+set('stat-synced', 'pending TUH access');
+set('stat-gb', '\u2014');
+set('stat-pct', '\u2014');
+set('stat-lastsync', '\u2014');
+}else{
 if(typeof d.recordings_synced === 'number') set('stat-synced', d.recordings_synced.toLocaleString());
 if(typeof d.gb_synced === 'number') set('stat-gb', d.gb_synced.toLocaleString() + ' GB');
 if(typeof d.recordings_synced === 'number' && typeof d.total_available === 'number' && d.total_available > 0){
@@ -196,6 +202,7 @@ set('stat-pct', Math.round((d.recordings_synced / d.total_available) * 100) + '%
 if(d.last_sync_utc){
 var dt = new Date(d.last_sync_utc);
 if(!isNaN(dt.getTime())) set('stat-lastsync', dt.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'}));
+}
 }
 })
 .catch(function(){});
