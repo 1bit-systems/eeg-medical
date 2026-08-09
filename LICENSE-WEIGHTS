@@ -1,0 +1,27 @@
+# Model Weights License — CC-BY-NC-4.0
+
+The fine-tuned model weights, checkpoints, and derived model artifacts produced
+by this project (the "Research Output") are licensed under the
+**Creative Commons Attribution-NonCommercial 4.0 International** license:
+
+**https://creativecommons.org/licenses/by-nc/4.0/legalcode**
+
+## What this means
+
+- **Free to use, share, and adapt for research and non-commercial purposes**
+  with attribution to this project.
+- **Not permitted:** commercial use — including selling access to the models,
+  building paid services on them, or using them to generate commercial
+  products or revenue in any form.
+- The research is public. The research is not for sale. If you profit from it,
+  you are in breach of this license.
+
+## What this does NOT cover
+
+- **Code** in this repository: licensed under AGPL-3.0 (see `LICENSE`).
+- **The TUH EEG Corpus**: not redistributed, not relicensed, not covered by
+  this license — it remains governed entirely by Temple University's data use
+  agreement.
+- **The base model (Zyphra ZUNA1.1)**: Apache-2.0, owned by Zyphra. This
+  license applies only to this project's fine-tuned derivatives, which is
+  permitted under the Apache-2.0 terms of the base model.

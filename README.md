@@ -88,4 +88,4 @@ Code in this repository is licensed under AGPL-3.0 — free for research and com
 
 The TUH EEG Corpus itself is **not** relicensed by this project and is **not** CC-BY-4.0 — it remains governed entirely by Temple University's own data use agreement, which prohibits redistribution to third parties. This project uses that data only internally for training and evaluation, and never re-publishes the raw or processed clinical recordings.
 
-Any of this project's own outputs that are released openly — fine-tuned model weights, checkpoints, and aggregate (non-identifying) benchmark results — are made freely available, separate and distinct from the TUH corpus itself. No closed-source profiteering from this research.
+Any of this project's own outputs that are released openly — fine-tuned model weights, checkpoints, and aggregate (non-identifying) benchmark results — are made freely available for **research and non-commercial use** under **CC-BY-NC-4.0** (see `LICENSE-WEIGHTS`), separate and distinct from the TUH corpus itself. Commercial use of the research output is not permitted. No closed-source profiteering from this research.
